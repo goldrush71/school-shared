@@ -113,14 +113,13 @@ public class Cube{
 
     static void sideRotate(String move){
         String[][] temp = cloneCube(); //Create a non-reference cube copy.
-        switch (move) {
+        switch (move) { //All hail the great switch case.
             case "u":
                 for(int i = 0; i < 3 ; i++){
                     cube[1][i] = temp[2][i];
                     cube[2][i] = temp[3][i];
                     cube[3][i] = temp[5][8-i];
-                    cube[5][8-i] = temp[1][i];
-                }
+                    cube[5][8-i] = temp[1][i];}
                 rotateFace(0,false);
                 break;
             case "u'":
@@ -128,23 +127,31 @@ public class Cube{
                     cube[1][i] = temp[5][8-i];
                     cube[2][i] = temp[1][i];
                     cube[3][i] = temp[2][i];
-                    cube[5][8-i] = temp[3][i];
-                }
+                    cube[5][8-i] = temp[3][i];}
                 rotateFace(0,true);
                 break;
             case "d":
-                
+                for(int i = 6; i < 9 ; i++){
+                    cube[1][i] = temp[2][i];
+                    cube[2][i] = temp[3][i];
+                    cube[3][i] = temp[5][8-i];
+                    cube[5][8-i] = temp[1][i];}
+                rotateFace(4, false);
                 break;
             case "d'":
-                
+                for(int i = 6; i < 9 ; i++){
+                    cube[1][i] = temp[5][8-i];
+                    cube[2][i] = temp[1][i];
+                    cube[3][i] = temp[2][i];
+                    cube[5][8-i] = temp[3][i];}
+                rotateFace(4, true);
                 break;
             case "r":
                 for(int i = 2; i < 9 ; i+=3){
                     cube[0][i] = temp[2][i];
                     cube[2][i] = temp[4][i];
                     cube[4][i] = temp[5][i];
-                    cube[5][i] = temp[0][i];
-                }
+                    cube[5][i] = temp[0][i];}
                 rotateFace(3,false);
                 break;
             case "r'":
@@ -152,8 +159,7 @@ public class Cube{
                     cube[0][i] = temp[5][i];
                     cube[2][i] = temp[0][i];
                     cube[4][i] = temp[2][i];
-                    cube[5][i] = temp[4][i];
-                }
+                    cube[5][i] = temp[4][i];}
                 rotateFace(3,true);
                 break;
             case "l":
@@ -161,8 +167,7 @@ public class Cube{
                     cube[0][i] = temp[2][i];
                     cube[2][i] = temp[4][i];
                     cube[4][i] = temp[5][i];
-                    cube[5][i] = temp[0][i];
-                }
+                    cube[5][i] = temp[0][i];}
                 rotateFace(3,false);
                 break;
             case "l'":
@@ -170,44 +175,52 @@ public class Cube{
                     cube[0][i] = temp[5][i];
                     cube[2][i] = temp[0][i];
                     cube[4][i] = temp[2][i];
-                    cube[5][i] = temp[4][i];
-                }
+                    cube[5][i] = temp[4][i];}
                 rotateFace(3,true);
                 break;
             case "f":
-                
+                for(int i = 0; i < 3 ; i++){
+                    cube[0][6+i] = temp[1][i+2*(1+i)]; //so face0 678 are replaced by face1 258
+                    cube[1][i+2*(1+i)] = temp[4][i];
+                    cube[4][i] = temp[3][i+2*(1+i)-2]; //so face4 012 are replaced by face3 036
+                    cube[3][i+2*(1+i)-2] = temp[0][5+i];}
+                rotateFace(2,false);
                 break;
             case "f'":
-                
+                for(int i = 0; i < 3 ; i++){
+                    cube[0][6+i] = temp[3][i+2*(1+i)-2]; 
+                    cube[1][i+2*(1+i)] = temp[0][5+i];
+                    cube[4][i] = temp[1][i+2*(1+i)]; 
+                    cube[3][i+2*(1+i)-2] = temp[4][i];}
+                rotateFace(2,true);
                 break;
             case "b":
-                
+                for(int i = 0; i < 3 ; i++){
+                    cube[0][i] = temp[1][i+2*(1+i)-2]; //so face0 678 are replaced by face1 258
+                    cube[1][i+2*(1+i)-2] = temp[4][i];
+                    cube[4][6+i] = temp[3][i+2*(1+i)]; //so face4 012 are replaced by face3 036
+                    cube[3][i+2*(1+i)] = temp[0][5+i];}
+                rotateFace(5, false);
                 break;
             case "b'":
-                
+                for(int i = 0; i < 3 ; i++){
+                    cube[0][i] = temp[3][i+2*(1+i)];
+                    cube[1][i+2*(1+i)-2] = temp[0][5+i];
+                    cube[4][6+i] = temp[1][i+2*(1+i)-2];
+                    cube[3][i+2*(1+i)] = temp[4][i];}
+                rotateFace(5, true);
                 break;
             default:
+                System.out.println("Something has gone wrong. A move entered was not a valid input.");
+                System.out.println("The character entered was: " + move);
                 break;
         }
     }
 
     public static void main(String[] args){
         //First, print the cube
-        
         printCube();
-        sideRotate("u");
-        printCube();
-        sideRotate("r");
-        printCube();
-        sideRotate("l");
-        printCube();
-        sideRotate("l'");
-        printCube();
-        sideRotate("r'");
-        printCube();
-        sideRotate("u'");
+        sideRotate("b");
         printCube();
     }
-
-
 }
